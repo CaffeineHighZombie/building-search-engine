@@ -22,4 +22,14 @@ def print_all_links(page):
         print_all_links(page[end_pos:])
 
 
+def get_page(url):
+    try:
+        import urllib
+        return urllib.urlopen(url).read()
+    except:
+        return ''
+        
+
+source_url = "http://google.com"
+page = get_page(source_url)
 print_all_links(page)
