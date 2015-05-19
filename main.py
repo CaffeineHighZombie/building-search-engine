@@ -1,8 +1,5 @@
 
-page =('<div id="top_bin"><div id="top_content" class="width960">'
-'<div class="udacity float-left"><a href="http://udacity.com">')
-
-
+# finding url within a piece of html text
 def get_next_target(page):
     start_link = page.find('<a href="')
 
@@ -15,6 +12,7 @@ def get_next_target(page):
         return url, end_quote
 
 
+# recursively finding all the url within the html source page
 def print_all_links(page):
     url, end_pos = get_next_target(page)
     if url:
@@ -22,6 +20,7 @@ def print_all_links(page):
         print_all_links(page[end_pos:])
 
 
+# getting the source page for the given url argument
 def get_page(url):
     try:
         import urllib
@@ -30,6 +29,6 @@ def get_page(url):
         return ''
         
 
-source_url = "http://google.com"
+source_url = "http://xkcd.com"  # hard coded url, would need it to be runtime input
 page = get_page(source_url)
 print_all_links(page)
