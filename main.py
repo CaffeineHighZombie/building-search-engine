@@ -13,11 +13,11 @@ def get_next_target(page):
 
 
 # recursively finding all the url within the html source page
-def print_all_links(page):
+def get_all_links(page):
     url, end_pos = get_next_target(page)
     if url:
-        print url
-        print_all_links(page[end_pos:])
+        links.append(url)
+        get_all_links(page[end_pos:])
 
 
 # getting the source page for the given url argument
@@ -27,8 +27,10 @@ def get_page(url):
         return urllib.urlopen(url).read()
     except:
         return ''
-        
 
+
+links = []
 source_url = "http://xkcd.com"  # hard coded url, would need it to be runtime input
 page = get_page(source_url)
-print_all_links(page)
+get_all_links(page)
+print links
