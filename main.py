@@ -44,13 +44,23 @@ def crawl_web(seed):
             crawled.append(page)           
     return index
 
-def add_to_index(index,keyword,url):
+def record_user_click(index,keyword,url):
+    urls = lookup(index, keyword)
+    if yrls:
+        for entry in urls:
+            if entry[0] == url:
+                entry[1] += 1
+
+def add_to_index(index, keyword, url):
     for entry in index:
         if entry[0] == keyword:
-            if not url in entry[1]:
-                entry[1].append(url)
+            for urls in entry[1]:
+                if urls[0] == url:
+                    return
+            entry[1].append([url,0])
             return
-    index.append([keyword,[url]])
+    # not found, add new keyword to index
+    index.append([keyword, [[url,0]]])
 
 def add_page_to_index(index,url,content):
     content = content.split()
